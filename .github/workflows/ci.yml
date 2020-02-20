@@ -1,0 +1,12 @@
+name: ci
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu18.04
+    container:
+      image: olivermichel/dpdk-ci:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Configure
+        run: mkdir build && cd build && RTE_SDK=/usr/src/dpdk-19.11 cmake -DCMAKE_BUILD_TYPE=Release ..
