@@ -10,5 +10,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Configure
         run: mkdir _build && cd _build && RTE_SDK=/usr/src/dpdk-19.11 cmake -DCMAKE_BUILD_TYPE=Release ..
+      - name: Compile
+        run: make -j$(nproc) -C _build
       - name: Run Rx
         run: _build/rx --no-huge --vdev 'net_pcap0,rx_pcap=test.pcap'
