@@ -1,7 +1,17 @@
 
-    docker build -t olivermichel/docker-ci .
+## Docker-based CI for DPDK Applications
+
+### Manual steps:
+
+
+#### Build and push Docker image:
+
+    docker build -t olivermichel/dpdk-ci .
+    docker push olivermichel/dpdk-ci:latest
     
-    docker run -itv $(pwd):/root/dpdk-ci olivermichel/docker-ci /bin/bash
+#### Start a shell in the container:
+    
+    docker run -itv $(pwd):/root/dpdk-ci olivermichel/dpdk-ci /bin/bash
     
     mkdir build && cd build
     RTE_SDK=/usr/src/dpdk-19.11 cmake ..
