@@ -5,12 +5,23 @@
 
 int init_port(unsigned port_index, struct rte_mempool* mbuf_pool, unsigned rx_rings, unsigned tx_rings)
 {
-    struct rte_eth_conf port_conf_default;
-    port_conf_default.rxmode.max_rx_pkt_len = RTE_ETHER_MAX_LEN;
-    port_conf_default.rxmode.mq_mode        = ETH_MQ_RX_NONE;
-    port_conf_default.rxmode.offloads       = 0;
-    port_conf_default.txmode.mq_mode        = ETH_MQ_TX_NONE;
-    port_conf_default.txmode.offloads       = 0;
+    static struct rte_eth_conf port_conf_default = {
+        .rxmode = {
+            .mq_mode        = ETH_MQ_RX_NONE,
+            .max_rx_pkt_len = RTE_ETHER_MAX_LEN,
+            .offloads       = 0,
+        },
+        .rx_adv_conf = {
+            .rss_conf = {
+                .rss_key    = 0,
+                .rss_hf     = 0,
+            }
+        },
+        .txmode = {
+            .mq_mode        = ETH_MQ_TX_NONE,
+            .offloads       = 0,
+        }
+    };
 
     struct rte_eth_conf port_conf = port_conf_default;
     uint16_t nb_rxd = 1024;
