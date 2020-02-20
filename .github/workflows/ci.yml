@@ -14,3 +14,5 @@ jobs:
         run: make -j$(nproc) -C _build
       - name: Run Rx
         run: _build/rx --no-huge --vdev 'net_pcap0,rx_pcap=test.pcap'
+      - name: Run Info
+        run: _build/info --no-huge --vdev 'net_pcap0,rx_pcap=test.pcap'
